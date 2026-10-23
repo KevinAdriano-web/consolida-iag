@@ -1,0 +1,52 @@
+<div class="min-h-screen bg-slate-100 text-slate-700">
+  <aside class="fixed inset-y-0 left-0 z-10 hidden w-56 bg-[#0c3558] text-white shadow-xl lg:flex lg:flex-col">
+    <div class="flex h-16 items-center border-b border-white/10 px-5"><span class="text-sm font-extrabold tracking-wide text-amber-400">CONSOLIDA IAG</span></div>
+    <nav class="flex-1 space-y-1 px-3 py-5 text-xs">
+      <a class="sidebar-link" [routerLink]="['/dashboard']">⌂ Dashboard</a>
+      <a class="sidebar-link" [routerLink]="['/pedidos-consolidados']">▤ Pedidos Consolidados</a>
+      <a class="sidebar-link" [routerLink]="['/quantidades-totais']">▥ Quantidades Totais</a>
+      <a class="sidebar-link" [routerLink]="['/estoque']">▣ Estoque</a>
+      <a class="sidebar-link" [routerLink]="['/movimentacoes']">↗ Movimentações</a>
+      <a class="sidebar-link" [routerLink]="['/solicitacoes-cozinhas']">♨ Solicitações das Cozinhas</a>
+      <a class="sidebar-link active" [routerLink]="['/cadastrar-produtos']">▦ Cadastrar Produtos</a>
+      <a class="sidebar-link" [routerLink]="['/cadastrar-cozinhas']">♨ Cadastrar Cozinhas</a>
+      <a class="sidebar-link" [routerLink]="['/configuracoes']">⚙ Configurações</a>
+    </nav>
+    <a class="sidebar-link mb-4 px-6 text-red-300" [routerLink]="['/login']">↪ Sair</a>
+  </aside>
+
+  <div class="lg:pl-56">
+    <header class="flex h-16 items-center justify-between bg-[#123d62] px-4 text-white shadow-md sm:px-8">
+      <span class="text-sm text-slate-200">Bem vindo de volta, <strong>Usuário</strong></span>
+      <span class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-500 text-sm font-bold">U</span>
+    </header>
+    <main class="space-y-5 p-4 sm:p-6">
+      <section><p class="text-xs text-slate-500">Produtos <span class="text-slate-400">›</span> Cadastrar Produto</p><p class="mt-1 text-xs text-slate-500">Insira as informações do novo item para adicionar ao catálogo corporativo.</p></section>
+
+      <section class="rounded-md bg-white p-4 shadow-sm ring-1 ring-slate-200">
+        <div class="grid gap-4 md:grid-cols-[2fr_1fr_1fr_1fr_1fr_auto] md:items-end">
+          <label class="field-label">Descrição <span>*</span><input class="field-input" name="description" [(ngModel)]="description" type="text" placeholder="Ex.: Arroz Extra Virgem 500ml" /></label>
+          <label class="field-label">Quantidade <span>*</span><input class="field-input" name="quantity" [(ngModel)]="quantity" type="number" min="1" placeholder="0" /></label>
+          <label class="field-label">Preço <span>*</span><input class="field-input" name="price" [(ngModel)]="price" type="text" placeholder="R$ 0,00" /></label>
+          <label class="field-label">Marca <select class="field-input" name="brand" [(ngModel)]="brand"><option value="">Selecione...</option><option>Gallo</option><option>Tio João</option><option>Nestlé</option><option>Omo</option><option>Barilla</option></select></label>
+          <label class="field-label">Categoria <select class="field-input" name="category" [(ngModel)]="category"><option value="">Selecione...</option><option>Mercearia</option><option>Laticínios</option><option>Limpeza</option></select></label>
+          <label class="flex items-center gap-2 pb-2 text-xs font-medium text-slate-600"><input class="h-4 w-4 accent-orange-500" name="active" [(ngModel)]="active" type="checkbox" /> Ativo</label>
+        </div>
+        <div class="mt-4 flex justify-end gap-2">
+          @if (editingId !== null) { <button class="rounded border border-slate-300 px-5 py-2.5 text-xs font-bold uppercase text-slate-600" type="button" (click)="clearForm()">Cancelar</button> }
+          <button class="rounded bg-orange-600 px-7 py-2.5 text-xs font-bold uppercase tracking-wide text-white shadow-sm" type="button" (click)="saveProduct()">{{ editingId === null ? '✓ Cadastrar' : '✓ Atualizar' }}</button>
+        </div>
+      </section>
+
+      <section>
+        <div class="mb-3"><p class="text-xs text-slate-500">Produtos <span class="text-slate-400">›</span> Gerenciar produtos</p><p class="mt-1 text-xs text-slate-500">Visualize, edite ou remova os itens cadastrados no sistema.</p></div>
+        <div class="overflow-hidden rounded-md bg-white shadow-sm ring-1 ring-slate-200">
+          <div class="flex justify-end border-b border-slate-100 p-4"><div class="flex items-center rounded border border-slate-200 px-3 py-2 text-xs text-slate-400 sm:w-64">⌕ <input class="ml-2 w-full outline-none placeholder:text-slate-400" name="search" [(ngModel)]="search" type="search" placeholder="Buscar produto..." /></div></div>
+          <div class="overflow-x-auto"><table class="w-full min-w-[820px] text-left text-xs"><thead class="bg-slate-50 text-[10px] uppercase tracking-wide text-slate-500"><tr><th class="px-4 py-3">ID</th><th class="px-4 py-3">Descrição</th><th class="px-4 py-3">Qtd.</th><th class="px-4 py-3">Marca</th><th class="px-4 py-3">Preço</th><th class="px-4 py-3">Categoria</th><th class="px-4 py-3">Ativo</th><th class="px-4 py-3 text-right">Ações</th></tr></thead>
+          <tbody class="divide-y divide-slate-100">@for (product of filteredProducts; track product.id) {<tr class="hover:bg-slate-50"><td class="px-4 py-3 text-slate-400">#{{ product.id }}</td><td class="px-4 py-3 font-medium text-slate-700">{{ product.description }}</td><td class="px-4 py-3">{{ product.quantity }}</td><td class="px-4 py-3">{{ product.brand }}</td><td class="px-4 py-3 text-orange-600">{{ product.price }}</td><td class="px-4 py-3"><span class="tag">{{ product.category }}</span></td><td class="px-4 py-3" [class.text-emerald-600]="product.active" [class.text-slate-400]="!product.active">{{ product.active ? '●' : '⊖' }}</td><td class="px-4 py-3 text-right"><button class="action-button" type="button" (click)="editProduct(product)" aria-label="Editar produto">✎</button><button class="action-button text-red-400" type="button" (click)="deleteProduct(product.id)" aria-label="Excluir produto">▧</button></td></tr>}</tbody></table></div>
+          <div class="flex justify-between border-t border-slate-100 bg-slate-50 px-4 py-3 text-xs text-slate-500"><span>Mostrando {{ filteredProducts.length }} de {{ products.length }} resultados</span></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>

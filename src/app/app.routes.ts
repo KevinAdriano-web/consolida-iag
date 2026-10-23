@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { CadastrarProdutosComponent } from './cadastrar-produtos/cadastrar-produtos.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { CadastrarCozinhasComponent } from './cadastrar-cozinhas/cadastrar-cozinhas.component';
@@ -11,7 +12,7 @@ import { QuantidadesTotaisComponent } from './quantidades-totais/quantidades-tot
 import { SolicitacoesCozinhasComponent } from './solicitacoes-cozinhas/solicitacoes-cozinhas.component';
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', component: CadastrarProdutosComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'em-construcao', component: EmConstrucaoComponent },
@@ -22,5 +23,6 @@ export const routes: Routes = [
   { path: 'solicitacoes-cozinhas', component: SolicitacoesCozinhasComponent },
   { path: 'cadastrar-cozinhas', component: CadastrarCozinhasComponent },
   { path: 'configuracoes', component: ConfiguracoesComponent },
+  { path: 'cadastrar-produtos', component: CadastrarProdutosComponent },
   { path: '**', redirectTo: '' },
 ];

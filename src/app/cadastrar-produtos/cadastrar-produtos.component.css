@@ -1,0 +1,10 @@
+:host { display: block; }
+.sidebar-link { align-items: center; border-left: 3px solid transparent; color: rgb(226 232 240); display: flex; gap: .7rem; padding: .75rem; text-decoration: none; }
+.sidebar-link:hover, .sidebar-link.active { background: rgb(7 43 74); }
+.sidebar-link.active { border-left-color: rgb(249 115 22); color: white; font-weight: 700; }
+.field-label { color: rgb(100 116 139); display: block; font-size: .6875rem; font-weight: 600; }
+.field-label > span { color: rgb(249 115 22); }
+.field-input { background: rgb(248 250 252); border: 1px solid rgb(226 232 240); border-radius: .25rem; color: rgb(71 85 105); display: block; font-size: .6875rem; margin-top: .4rem; outline: none; padding: .65rem .7rem; width: 100%; }
+.field-input:focus { border-color: rgb(249 115 22); box-shadow: 0 0 0 2px rgb(255 237 213); }
+.tag { background: rgb(241 245 249); border-radius: 999px; color: rgb(100 116 139); font-size: .625rem; padding: .25rem .55rem; }
+.action-button { align-items: center; background: white; border: 1px solid rgb(226 232 240); border-radius: .2rem; color: rgb(100 116 139); display: inline-flex; height: 1.6rem; justify-content: center; margin-left: .3rem; width: 1.6rem; }
