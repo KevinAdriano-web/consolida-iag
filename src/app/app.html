@@ -1,1 +1,57 @@
-<router-outlet />
+@if (isLogin || isLegal) {
+  <router-outlet />
+} @else {
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navegação principal">
+      <div class="brand">CONSOLIDA IAG</div>
+      <nav class="sidebar-nav">
+        <details [open]="isGroupActive('solicitacoes')">
+          <summary>▤ <span>Solicitações</span></summary>
+          <div class="submenu">
+            <a routerLink="/solicitacoes-cozinhas" routerLinkActive="active">Nova solicitação</a>
+            <a routerLink="/pedidos-consolidados" routerLinkActive="active">Pedidos consolidados</a>
+            <a routerLink="/quantidades-totais" routerLinkActive="active">Quantidades solicitadas</a>
+          </div>
+        </details>
+        <details [open]="isGroupActive('estoque')">
+          <summary>▣ <span>Estoque</span></summary>
+          <div class="submenu">
+            <a routerLink="/estoque" routerLinkActive="active">Estoque atual</a>
+          </div>
+        </details>
+        <details [open]="isGroupActive('cadastros')">
+          <summary>♨ <span>Cadastros</span></summary>
+          <div class="submenu">
+            <a routerLink="/cadastrar-produtos" routerLinkActive="active">Produtos</a>
+            <a routerLink="/cadastrar-cozinhas" routerLinkActive="active">Cozinhas</a>
+          </div>
+        </details>
+        <details [open]="isGroupActive('historico')">
+          <summary>◷ <span>Histórico</span></summary>
+          <div class="submenu">
+            <a routerLink="/movimentacoes" routerLinkActive="active">Movimentações de estoque</a>
+          </div>
+        </details>
+      </nav>
+      <a class="logout-link" routerLink="/login">↪ <span>Sair</span></a>
+    </aside>
+    <div class="app-content">
+      <header class="topbar">
+        <span>Bem-vindo de volta, <strong>Eduardo</strong></span>
+        <div class="unit-selector">
+          <label for="unit-select">Unidade:</label>
+          <select id="unit-select" [ngModel]="unitService.selectedUnit().id" (ngModelChange)="unitService.selectUnit($event)" aria-label="Selecionar unidade da cozinha">
+            @for (unit of unitService.units; track unit.id) {
+              <option [value]="unit.id">{{ unit.code }}</option>
+            }
+          </select>
+        </div>
+        <button class="icon-button" type="button" aria-label="Ver notificações">♟</button>
+        <button class="profile-button" type="button" aria-label="Abrir perfil de Eduardo">E</button>
+      </header>
+      <main class="page-content" tabindex="-1">
+        <router-outlet />
+      </main>
+    </div>
+  </div>
+}
